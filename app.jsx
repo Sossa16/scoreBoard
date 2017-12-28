@@ -1,8 +1,8 @@
-function Application() {
+function Application(props) {
 	return(
 		<div className = "scoreboard ">
 			<div className = "header">
-				<h1>Score Board </h1>
+				<h1>{props.title} </h1>
 			</div>
 			<div className = "players">
 				<div className = "player">
@@ -21,5 +21,16 @@ function Application() {
 		</div>
 	);
 }
+
+//Configurando la propiedades
+Application.propTypes = {
+	title: React.PropTypes.string
+};
+
+//Asociando valores a las propiedades
+Application.defaulProps = {
+	title: "Score Board"
+};
+
 
 ReactDOM.render(<Application />, document.getElementById('container'));
