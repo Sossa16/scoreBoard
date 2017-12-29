@@ -11,6 +11,43 @@ var PLAYERS = [
 	}
 ]
 
+
+/*Componente sin estado*/
+
+var Counter = React.createClass ({
+	propTypes : {
+		initialScore: React.PropTypes.number.isRequired 
+	},
+
+	incrementScore : function(){
+		this.setState({
+			score: (this.state.score + 1)
+		})
+	},
+
+	decrementScore : function(){
+		this.setState({
+			score: (this.state.score - 1)
+		})
+	},
+
+	getInitialState: function (){
+		return{ score: this.props.initialScore} /*actualizando los datos*/
+	},
+
+	render: function (){
+	return(
+		<div className = "counter">
+			<button className = "counter-action decrement" onClick = {this.decrementScore}>-</button>
+			<div className = "counter-score">
+				{this.state.score} {/*Refencia en componente de clase*/}
+			</div>
+			<button className = "counter-action increment" onClick = {this.incrementScore}>+</button>
+		</div>
+		);
+	}
+});
+
 function Header(props){
 	return(
 		<div className = "header">
@@ -26,24 +63,11 @@ function Player(props){
 				{props.name}
 			</div>
 			<div className = "player-score">
-				<Counter score= {props.score} />
+				<Counter initialScore = {props.score}/>
 			</div>	
 		</div>
 		);
 };
-
-function Counter(props){
-	return(
-		<div className = "counter">
-			<button className = "counter-action decrement">-</button>
-			<div className = "counter-score">
-				{props.score}
-			</div>
-			<button className = "counter-action increment">+</button>
-		</div>
-		);
-}
-
 
 function Application(props) {
 	return(
@@ -67,9 +91,6 @@ Player.propTypes = {
 	name: React.PropTypes.string.isRequired,
 };
 
-Counter.propTypes = {
-	score: React.PropTypes.number.isRequired
-}
 Application.propTypes ={
 	players: React.PropTypes.arrayOf(React.PropTypes.shape({
 			name: React.PropTypes.string.isRequired,
